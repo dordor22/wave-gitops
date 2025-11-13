@@ -1,0 +1,13 @@
+frontend:
+  image:
+    repository: "<STAGE_FRONTEND_ECR_URL>"
+    tag: "stage-1.0.0"
+
+backend:
+  image:
+    repository: "<STAGE_BACKEND_ECR_URL>"
+    tag: "stage-1.0.0"
+
+service:
+  type: ClusterIP
+  port: 80

@@ -1,0 +1,19 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Helm artifacts
+*.tgz
+.chart_tmp/
+
+# Node (אם תוסיף כלים)
+node_modules/
+dist/
+build/

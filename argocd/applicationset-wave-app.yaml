@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: wave-app
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - env: dev
+            namespace: wave-app-dev
+          - env: stage
+            namespace: wave-app-stage
+          - env: prod
+            namespace: wave-app-prod
+
+  template:
+    metadata:
+      name: wave-app-{{env}}
+    spec:
+      project: wave-app
+      source:
+        repoURL: https://github.com/dordor22/wave-app
+        targetRevision: main
+        path: helm  
+        helm:
+          valueFiles:
+            - ../env/{{env}}/values.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: {{namespace}}
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
